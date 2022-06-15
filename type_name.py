@@ -41,17 +41,50 @@ agent.load_model(model_dir)
 
 # Robot to press key #
 def robot_press(env, agent, goal_letter):
-    print('Robot is finding the letter: ', goal_letter)
     current_state = env.reset(coords_to_letter(env.current_coords), goal_letter)
     done = False
     steps = 0
     while not done and steps < env.max_ep_len:
         steps += 1
-        action = agent.act(current_state)
-        new_state, reward, done, info = env.step(action, steps)
-        print('current letter is ', coords_to_letter(env.current_coords))
-        current_state = new_state
+        done = move_robot_coords(env, goal_letter)
     return coords_to_letter(env.current_coords)
+
+def move_robot_coords(env, goal_letter):
+    current_imaginary = translate_coord(env.current_coords)
+    goal_imaginary = translate_coord(letter_to_coords(goal_letter))
+    done = False
+    if current_imaginary[1] < goal_imaginary[1] - 2:
+        if current_imaginary[1] == 20:
+            current_imaginary[0] -= 1
+            current_imaginary[1] += 5
+        else:
+            current_imaginary[1] += 3
+    elif current_imaginary[1] > goal_imaginary[1] + 2:
+        current_imaginary[1] -= 3
+    elif current_imaginary[0] < goal_imaginary[0]:
+        if current_imaginary[1] == 25:
+            current_imaginary[0] += 1
+            current_imaginary[1] -= 5
+        elif current_imaginary[1] == 22:
+            current_imaginary[0] += 1
+            current_imaginary[1] -= 2
+        elif current_imaginary[1] == 27:
+            current_imaginary[0] += 1
+            current_imaginary[1] -= 2
+        else:
+            current_imaginary[0] += 1
+            current_imaginary[1] += 1
+    elif current_imaginary[0] > goal_imaginary[0]:
+        current_imaginary[0] -= 1
+        current_imaginary[1] -= 1
+    else:
+        done = True
+    env.current_coords = translate_coord(current_imaginary) #turn coords into real
+    move_phys_dobot(env.current_coords) #move robot to new coords
+    if done == False:
+        press_phys_dobot(env.current_coords)
+
+    return done
 
 # DISPLAY INITIAL QUESTION #
 display_surface.fill(white)
@@ -110,7 +143,7 @@ while len_str < len(type_str):
 
     event = coords_to_letter(env.current_coords)
 
-    if event == 'space':
+    if event == 'SPACE':
         event = ' '
     len_str += 1
     final_str = final_str + event
