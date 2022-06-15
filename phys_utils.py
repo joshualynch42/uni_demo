@@ -16,7 +16,7 @@ from PIL import Image
 alphabet_arr = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D',
         'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'SPACE']
 arrow_arr = ['UP', 'DOWN', 'LEFT', 'RIGHT']
-key_coords = pd.read_csv(r"D:\Users\Josh\github\individual_project\simulation\simulation_data\key_coords.csv")
+key_coords = pd.read_csv(r"D:\Josh\github\uni_demo\key_coords.csv")
 
 def make_sensor(): # amcap: reset all settings; autoexposure off; saturdation max
     camera = CvPreprocVideoCamera(source=0,  # might need changing for webcam
