@@ -14,9 +14,9 @@ step = 0
 env._max_episode_steps = 1000
 while not done:
 
-    if keyboard.is_pressed('q'):  # if key 'q' is pressed
+    if keyboard.is_pressed('LEFT'):  # if key 'q' is pressed
         action = 0
-    elif keyboard.is_pressed('e'):  # if key 'q' is pressed
+    elif keyboard.is_pressed('RIGHT'):  # if key 'q' is pressed
         action = 2
     else:
         action = 1
