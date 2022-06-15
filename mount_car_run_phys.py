@@ -1,5 +1,4 @@
 import sys
-sys.path.insert(1, 'D:/Users/Josh/github/individual_project/simulation')
 from phys_utils import *
 import random
 import time

@@ -2,7 +2,6 @@ import keyboard
 import pygame
 import time
 import sys
-sys.path.insert(1, 'D:/Josh/github/individual_project/simulation') ## add users
 from dueling_ddqn_per import *
 from phys_utils import *
 
@@ -40,7 +39,7 @@ model_dir = "D:/Users/Josh/github/individual_project/physical/phys_agents/alphab
 agent = Dueling_Per_DDQNAgent(env, rl_params)
 agent.load_model(model_dir)
 
-Robot to press key #
+# Robot to press key #
 def robot_press(env, agent, goal_letter):
     current_state = env.reset(coords_to_letter(env.current_coords), goal_letter)
     done = False
