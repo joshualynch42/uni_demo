@@ -1,0 +1,10 @@
+numpy
+transforms3d
+scipy
+opencv-python>=3.4.5.20
+comtypes
+matplotlib
+pandas
+h5py
+gym
+keyboard
