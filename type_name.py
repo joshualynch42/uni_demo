@@ -35,12 +35,13 @@ rl_params = {
 'episodes': 1
 }
 env = phys_discrete_alphabet_env_new('Q', 'Q')
-model_dir = "D:/Users/Josh/github/individual_project/physical/phys_agents/alphabet_transfer_learning_phys_Dueling Double Per.h5"
+model_dir = "D:/Users/Josh/github/uni_demo/alphabet_transfer_learning_phys_Dueling Double Per_new.h5"
 agent = Dueling_Per_DDQNAgent(env, rl_params)
 agent.load_model(model_dir)
 
 # Robot to press key #
 def robot_press(env, agent, goal_letter):
+    print('Robot is finding the letter: ', goal_letter)
     current_state = env.reset(coords_to_letter(env.current_coords), goal_letter)
     done = False
     steps = 0
@@ -48,6 +49,7 @@ def robot_press(env, agent, goal_letter):
         steps += 1
         action = agent.act(current_state)
         new_state, reward, done, info = env.step(action, steps)
+        print('current letter is ', coords_to_letter(env.current_coords))
         current_state = new_state
     return coords_to_letter(env.current_coords)
 
@@ -104,7 +106,7 @@ len_str = 0
 while len_str < len(type_str):
     # act robot #
     goal_letter = [char for char in type_str][len_str]
-    robot_press(env, agent, goal_letter)
+    robot_press(env, agent, goal_letter.upper())
 
     event = coords_to_letter(env.current_coords)
 

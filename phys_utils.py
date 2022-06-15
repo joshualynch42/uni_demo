@@ -16,10 +16,10 @@ from PIL import Image
 alphabet_arr = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D',
         'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'SPACE']
 arrow_arr = ['UP', 'DOWN', 'LEFT', 'RIGHT']
-key_coords = pd.read_csv(r"D:\Josh\github\uni_demo\key_coords.csv")
+key_coords = pd.read_csv(r"D:\Users\Josh\github\uni_demo\key_coords.csv")
 
 def make_sensor(): # amcap: reset all settings; autoexposure off; saturdation max
-    camera = CvPreprocVideoCamera(source=0,  # might need changing for webcam
+    camera = CvPreprocVideoCamera(source=1,  # might need changing for webcam
                 crop=[320-128-10, 240-128+10, 320+128-10, 240+128+10],
                 size=[128, 128],
                 threshold=[61, -5],
@@ -397,7 +397,6 @@ class phys_discrete_arrow_env_pong(Env):
     def render(self):
         pass
 
-
 class phys_discrete_alphabet_env_pong(Env):
     def __init__(self, current_letter, goal_letter):
         self.current_step = 0
@@ -531,6 +530,7 @@ class phys_discrete_alphabet_env_new(Env):
         self.starting_letter = current_letter
         self.goal_letter = goal_letter
         self.current_coords = letter_to_coords(self.starting_letter)
+        move_phys_dobot(self.current_coords)
         self.action_array = np.array(['upleft', 'upright', 'left', 'right', 'downleft', 'downright', 'pressdown'])
         self.state = create_state(get_image(self.current_coords), self.goal_letter)
         self.img_shape = np.shape(get_image(self.current_coords))

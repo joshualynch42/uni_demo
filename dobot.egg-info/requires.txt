@@ -8,3 +8,7 @@ pandas
 h5py
 gym
 keyboard
+pygame
+tensorflow==2.8.0
+keras==2.8.0
+keyboard
